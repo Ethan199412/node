@@ -18,7 +18,7 @@ server.on("request", function (req, res) {
       "Access-Control-Allow-Origin":req.headers.origin
     });
   }
-  console.log(req.url)
+  console.log(req.url,req.socket.remoteAddress,req.socket.remotePort)
   switch(req.url){
     case '/login':
       res.write('login')
