@@ -18,10 +18,19 @@ server.on("request", function (req, res) {
       "Access-Control-Allow-Origin":req.headers.origin
     });
   }
+  //res.setHeader('Content-Type','text/plain; charset=utf-8')
   console.log(req.url,req.socket.remoteAddress,req.socket.remotePort)
   switch(req.url){
+    case '/plain':
+      res.setHeader('Content-Type','text/plain; charset=utf-8')
+      res.write('hello 世界')
+      break
+    case '/html':
+      res.setHeader('Content-Type','text/html; charset=utf-8')
+      res.write('<p>hello html<a href="http://127.0.0.1:1337/login">点我</a></p>')
+      break
     case '/login':
-      res.write('login')
+      res.write('login 登录')
       break
     case '/register':
       res.write('register')
