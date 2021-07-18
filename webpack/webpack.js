@@ -14,6 +14,7 @@ function createAsset(filename) {
     // 钩子
     traverse(ast, {
         ImportDeclaration: ({node}) => {
+            console.log('node',node)
             dependencies.push(node.source.value)
             console.log(node.source.value)
         }

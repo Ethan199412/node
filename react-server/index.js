@@ -27,3 +27,4 @@ const server = http.createServer(function (req, res) {
 }).listen(3000,function(){
     console.log('server starting')
 })
+

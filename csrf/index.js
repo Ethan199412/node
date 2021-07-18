@@ -59,6 +59,7 @@ const routes = {
 function onRequest(req, res) {
   const { url, headers } = req // 获取 url 和 headers
   const cookies = qs.parse(headers.cookie, '; ') // 从 headers 中解析出 cookies 对象
+  
   const { query, pathname } = URL.parse(url, true) // 从 url 中解析出 query 和 path 对象
   Object.assign(req, { query, path: pathname, cookies }) // 扩展 req
   const route = routes[headers.host] // 根据 host 分发路由（策略模式）
