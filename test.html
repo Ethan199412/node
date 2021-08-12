@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        obj = {
+            a: {
+                a: [3,4],
+                b: 2
+            },
+            b: {
+                c: 1,
+                d: 1
+            }
+        }
+
+        function f(obj) {
+            let arr = []
+            Object.keys(obj).map(key => {
+                if (typeof obj[key] === 'object' && !Array.isArray(obj[key]))
+                    arr.push({
+                        key,
+                        value: f(obj[key])
+                    })
+                else{
+                    arr.push({
+                        key,
+                        value: obj[key]
+                    })
+                }
+            })
+            return arr
+        }
+
+        console.log(f(obj))
+    </script>
+</body>
+
+</html>
