@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>React Starter</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        obj = {
+            a: {
+                a: 1,
+                b: 1
+            },
+            b: {
+                c: 1,
+                d: [
+                    {
+                        e: {
+                            g: 1,
+                            h: 1
+                        }
+                    },
+                    {
+                        f: 1
+                    }
+                ]
+            }
+        }
+
+        function parseObj(obj) {
+            let arr = []
+            Object.keys(obj).forEach(key => {
+                let value = obj[key]
+                if (typeof value === 'object' && !Array.isArray(value)) {
+                    arr.push({
+                        key,
+                        value: parseObj(value)
+                    })
+                } else if (Array.isArray(value)) {
+                    arr.push({
+                        key,
+                        value: parseArray(value)
+                    })
+                } else {
+                    arr.push({
+                        key,
+                        value
+                    })
+                }
+            })
+            return arr
+        }
+        function parseArray(arr) {
+            res = []
+            for (let i in arr) {
+                let value = arr[i]
+                if (typeof value === 'object' && !Array.isArray(value)) {
+                    res.push(parseObj(value))
+                }
+                else if (Array.isArray(value)) {
+                    res.push(parseArray(value))
+                } else {
+                    res.push(value)
+                }
+            }
+            return res
+        }
+
+        console.log(parseObj(obj))
+    </script>
+    <script src="../js/bundle.js"></script>
+</body>
+
+</html>
