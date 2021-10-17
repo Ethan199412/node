@@ -4,21 +4,31 @@ import React, { Component, PureComponent } from "react";
 import ReactDOM from "react-dom";
 import './style/index.less'
 import axios from 'axios'
-import { Table, Card, Button, Form, Input } from 'antd'
+import { Table, Card, Button, Form, Input, Select } from 'antd'
 import 'antd/dist/antd.min.css';
 import { EditableRow, EditableCell } from './editable-component/editable-component.js'
 
+const { Option } = Select
 const columns = [
     {
         title: 'ID',
-        dataIndex: 'id',
-        key: 'id'
+        dataIndex: '_id',
+        key: '_id'
     },
     {
         title: '姓名',
         dataIndex: 'name',
         key: 'name',
         editable: true
+    },
+    {
+        title: '性别',
+        dataIndex: 'gender',
+        key: 'gender',
+        editable: true,
+        render: (gender) => {
+            return gender === 1 ? '女' : '男'
+        }
     },
     {
         title: '年龄',
@@ -60,9 +70,9 @@ class App extends React.Component {
 
     onUpdate = (row) => {
         console.log('update row', row)
-        const { name, age, id } = row
+        const { name, age, gender, _id } = row
 
-        axios.post('/update', { name, age, id }).then(res => {
+        axios.post('/update', { name, age, gender, _id}).then(res => {
             console.log('update res', res)
             this.getRead()
         })
@@ -70,7 +80,7 @@ class App extends React.Component {
 
     onDelete = (row) => {
         console.log('[p2] row', row)
-        axios.post('/delete', row.id).then(res => {
+        axios.post('/delete', row._id).then(res => {
             console.log('delete res', res)
             this.getRead()
         })
@@ -104,7 +114,7 @@ class App extends React.Component {
         const students = JSON.parse(JSON.stringify(this.state.students))
         console.log('[p3] row', row, students)
         const index = students.findIndex(e => {
-            return e.id === row.id
+            return e._id === row._id
         })
         students[index] = row
         this.setState({
@@ -161,6 +171,15 @@ class App extends React.Component {
                         name='age'
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label='性别'
+                        name='gender'
+                    >
+                        <Select>
+                            <Option value={0}>男</Option>
+                            <Option value={1}>女</Option>
+                        </Select>
                     </Form.Item>
                     <Form.Item>
                         <Button type='primary' htmlType='submit'>插入</Button>
