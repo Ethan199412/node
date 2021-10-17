@@ -1,6 +1,7 @@
 const http = require('http')
 const qs = require('querystring')
 const URL = require('url')
+const fs = require('fs')
 
 // 模拟账户
 const account = {
@@ -15,11 +16,11 @@ const routes = {
     if (!from && req.path !== '/login') return res.end('请先登录')
     switch (req.path) {
       case '/login': // 登录接口
-        res.setHeader('Set-Cookie', ['session=keliq; httpOnly=false;']) // 设置 httpOnly Cookie 并不能阻止 CSRF 攻击
+        res.setHeader('Set-Cookie', ['session=keliq; httpOnly=true;']) // 设置 httpOnly Cookie 并不能阻止 CSRF 攻击
         res.end('<h2>欢迎您，keliq！</h2>')
         break
       case '/balance': // 查询账户余额接口
-        res.end(`${from}的账户余额为：${account[from]}`) 
+        res.end(`${from}的账户余额为：${account[from]}`)
         break
       case '/transfer': // 转账接口
         const { money, to } = req.query
@@ -33,21 +34,28 @@ const routes = {
         res.end('404')
     }
   },
-  // <img id="img" width="300" src="http://img.zlib.cn/beauty/1.jpg" />
   '127.0.0.1:4000': (req, res) => {
-    res.end(`
-<div id="el">
-  <p>大新闻<a href="javascript:transfer()">点击下载</a>吧！</p>
-  
-</div>
-<script>
-  function transfer() {
-    open('http://localhost:3000/transfer?to=hacker&money=100', '', 'width=300,height=100,left=5000,top=5000')
-    const h2 = document.createElement('h2')
-    h2.innerHTML = '不该点的链接不要点，贪婪是原罪！'
-    el.appendChild(h2)
-  }
-</script>`)
+    fs.readFile('./hacker-page.html', (err, data) => {
+      if (err) {
+        res.end('err')
+        return
+      }
+      console.log('data',data.toString())
+      res.end(data.toString())
+    })
+    //     res.end(`
+    // <div id="el">
+    //   <p>5G高清美女照片，赶快<a href="javascript:transfer()">点击下载</a>吧！</p>
+    //   <img id="img" width="300" src="http://img.zlib.cn/beauty/1.jpg" />
+    // </div>
+    // <script>
+    //   function transfer() {
+    //     open('http://localhost:3000/transfer?to=hacker&money=100', '', 'width=300,height=100,left=5000,top=5000')
+    //     const h2 = document.createElement('h2')
+    //     h2.innerHTML = '不该点的链接不要点，贪婪是原罪！'
+    //     el.appendChild(h2)
+    //   }
+    // </script>`)
   },
 }
 

