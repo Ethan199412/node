@@ -23,14 +23,14 @@ server.on("request", function (req, res) {
   switch(req.url){
     case '/plain':
       res.setHeader('Content-Type','text/plain; charset=utf-8')
-      res.write('hello 世界')
+      res.write('hello world')
       break
     case '/html':
       res.setHeader('Content-Type','text/html; charset=utf-8')
       res.write('<p>hello html<a href="http://127.0.0.1:1337/login">点我</a></p>')
       break
     case '/login':
-      res.write('login 登录')
+      res.write('login')
       break
     case '/register':
       res.write('register')

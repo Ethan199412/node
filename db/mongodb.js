@@ -19,9 +19,6 @@ let commentSchema = new Schema({
     }
 })
 
-<<<<<<< HEAD
-module.exports = mongoose.model('Student', commentSchema)
-=======
 for (let i = 0; i < 100; i++) {
     let kitty = new Cat({ name: 'miao' + i })
 
@@ -33,4 +30,3 @@ for (let i = 0; i < 100; i++) {
         }
     })
 }
->>>>>>> a69995d9a57ae98bf37a832dceaefad81eaf23c1
