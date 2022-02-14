@@ -40,22 +40,9 @@ const routes = {
         res.end('err')
         return
       }
-      console.log('data',data.toString())
+      console.log('data', data.toString())
       res.end(data.toString())
     })
-    //     res.end(`
-    // <div id="el">
-    //   <p>5G高清美女照片，赶快<a href="javascript:transfer()">点击下载</a>吧！</p>
-    //   <img id="img" width="300" src="http://img.zlib.cn/beauty/1.jpg" />
-    // </div>
-    // <script>
-    //   function transfer() {
-    //     open('http://localhost:3000/transfer?to=hacker&money=100', '', 'width=300,height=100,left=5000,top=5000')
-    //     const h2 = document.createElement('h2')
-    //     h2.innerHTML = '不该点的链接不要点，贪婪是原罪！'
-    //     el.appendChild(h2)
-    //   }
-    // </script>`)
   },
 }
 

