@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SSE Tutorial</title>
+  </head>
+  <body>
+    <h1>SSE Tutorial</h1>
+    <div id="events"></div>
+
+    <script>
+      const events = document.getElementById('events');
+
+      const source = new EventSource('/sse');
+
+      source.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const message = data.message;
+
+        events.innerHTML += `<p>${message}</p>`;
+      };
+    </script>
+  </body>
+</html>
