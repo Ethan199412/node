@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTTP2 SSE Frontend Example</title>
+</head>
+<body>
+  <h1>HTTP2 SSE Frontend Example</h1>
+
+  <div id="messages"></div>
+
+  <script>
+    const eventSource = new EventSource('https://localhost:3000/sse');
+
+    eventSource.onmessage = function(event) {
+      const data = JSON.parse(event.data);
+      const messageElement = document.createElement('p');
+      messageElement.innerText = data.message;
+      document.getElementById('messages').appendChild(messageElement);
+    };
+  </script>
+</body>
+</html>
