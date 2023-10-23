@@ -22,6 +22,7 @@
     "express": "^4.18.2",
     "http2": "^3.3.7",
     "kafka-node": "^5.0.0",
+    "kafkajs": "^2.2.4",
     "kakfa-node": "^1.0.0",
     "mongoose": "^6.0.5",
     "spdy": "^4.0.2"
